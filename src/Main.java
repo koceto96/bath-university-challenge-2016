@@ -18,13 +18,17 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-	    System.out.printf("1. Edit a web page%n2. Editing report%n3. Exit application%n");
-        String input = main.sc.nextLine();
-        while (!input.equals("\\d+") && Integer.parseInt(input) > 3 && Integer.parseInt(input) < 1) {
-            input = main.sc.nextLine();
-        }
-        main.options(Integer.parseInt(input));
+        main.startMenu();
 
+
+    }
+    public void startMenu(){
+        System.out.printf("1. Edit a web page%n2. Editing report%n3. Exit application%n");
+        String input = sc.nextLine();
+        while (!input.equals("\\d+") && Integer.parseInt(input) > 3 && Integer.parseInt(input) < 1) {
+            input = sc.nextLine();
+        }
+        options(Integer.parseInt(input));
     }
 
     public void options(int a){
@@ -80,7 +84,7 @@ public class Main {
         String meta = output1.substring(output1.indexOf("<meta name=\"description\" content=\"") +
                         "<meta name=\"description\" content=\"".length() ,
                 output1.indexOf("\" />",output1.indexOf("<meta name=\"description\" content=\"")));
-        System.out.println("meta: " + meta);
+        System.out.println("description: " + meta);
         String keyWords = output1.substring(output1.indexOf("<meta name=\"keywords\" content=\"") +
                         "<meta name=\"keywords\" content=\"".length() ,
                 output1.indexOf("\" />",output1.indexOf("<meta name=\"keywords\" content=\"")));
@@ -91,7 +95,7 @@ public class Main {
 
         System.out.printf("1. Edit title%n2. Edit content description %n3. Exit keywords%n");
         String input2 = sc.nextLine();
-        while (!input.equals("\\d+") && Integer.parseInt(input) > 3 && Integer.parseInt(input) < 1) {
+        while (!input2.equals("\\d+") && Integer.parseInt(input2) > 3 && Integer.parseInt(input2) < 1) {
             input2 = sc.nextLine();
         }
         switch (Integer.parseInt(input2)){
@@ -111,15 +115,25 @@ public class Main {
         newValues.add(title);
         newValues.add(meta);
         newValues.add(keyWords);
+        startMenu();
 
     }
 
     void editReport() {
+        if(oldValues.isEmpty()){
+            System.out.println("No sites in!");
+            startMenu();
+        }
+        System.out.printf("OLD : %n%n" + "title: " + oldValues.get(0) + "%n" + "description: " + oldValues.get(1) + "%n"+
+                "keywords: " + oldValues.get(2)+ "%n");
+        System.out.printf("%nNEW : %n%n" + "title: " + newValues.get(0) + "%n" + "description: "+ newValues.get(1) + "%n"+
+                "keywords: "+ newValues.get(2)+ "%n");
+        startMenu();
 
     }
 
     void exitApp() {
-
+     System.exit(0);
     }
 
 }
